@@ -7,8 +7,46 @@
     <title>Project_Quiz_API</title>
 </head>
 <body>
+    <header>
+        <h1>TypeScript Quiz</h1>
+    </header>
 
-    <h1>Test</h1>
+    <main>
+        <section id="settings">
+            <h2>Einstellungen</h2>
+            <label for="language">Sprache:</label>
+            <select name="" id="language">
+                <option value="de">Deutsch</option>
+                <option value="en">Englisch</option>
+            </select> 
+
+            <label for="difficulty">Schwierigkeitsgrad:</label>
+            <select name="" id="difficulty">
+                <option value="easy">Leicht</option>
+                <option value="hard">Schwer</option>
+            </select>
+
+            <button id="startQuiz">Quiz starten</button>
+        </section>
+
+        <section id="quiz">
+            <h2>Frage</h2>
+            <div id="questionContainer"></div>
+            <div id="answersContainer"></div>
+            <button id="nextQuestion">Nächste Frage</button>
+        </section>
+
+        <section id="results">
+            <h2>Ergebnisse</h2>
+            <p id="score"></p>
+            <button id="retryQuiz">Erneut versuchen</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>2024 TypeScript Quiz</p>
+    </footer>
+
     <script type="module" src="./main.ts"></script>
 </body>
 </html>
