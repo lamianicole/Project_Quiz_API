@@ -13,7 +13,6 @@
 
     <main>
         <section id="settings">
-            <h2>Einstellungen</h2>
             <label for="language">Sprache:</label>
             <select name="" id="language">
                 <option value="de">Deutsch</option>
@@ -27,19 +26,17 @@
             </select>
 
             <button id="startQuiz">Quiz starten</button>
+            <button id="resetQuiz" style="display: none;">RESET</button>
         </section>
 
         <section id="quiz">
-            <h2>Frage</h2>
             <div id="questionContainer"></div>
             <div id="answersContainer"></div>
-            <button id="nextQuestion">Nächste Frage</button>
+            <p id="questionCount"></p>
         </section>
 
         <section id="results">
-            <h2>Ergebnisse</h2>
             <p id="score"></p>
-            <button id="retryQuiz">Erneut versuchen</button>
         </section>
     </main>
 

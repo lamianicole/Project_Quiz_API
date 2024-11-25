@@ -1,7 +1,7 @@
 export default interface IQuestion {
     question: string;
-    options: string [];
-    correctAnswer: number;
+    answers: string [];
+    correct: number;
 }
 
 export default interface IQuizData {
