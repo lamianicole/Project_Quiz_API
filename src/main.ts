@@ -6,15 +6,27 @@ const BASE_URL = "https://vz-wd-24-01.github.io/typescript-quiz/questions"
 const LANGUAGES = ['de', 'en'];
 const DIFFICULTY = ['easy', 'hard'];
 
+function buildQuizURL(language: string, difficulty: string): string {
+  let finalDifficulty: string;
 
-function buildQuizURL(language: typeof LANGUAGES[number], difficulty: typeof DIFFICULTY[number]): string {
   if (language === 'de') {
-      difficulty = difficulty === 'easy' ? 'leicht' : 'schwer';
+      if (difficulty === 'easy') {
+          finalDifficulty = 'leicht';
+      } else if (difficulty === 'hard') {
+          finalDifficulty = 'schwer';
+      } else {
+          throw new Error('Ungültiger Schwierigkeitsgrad');
+      }
+  } else if (language === 'en') {
+      finalDifficulty = difficulty;
+  } else {
+      throw new Error('Ungültige Sprache');
   }
-  return `${BASE_URL}/${difficulty}.json`;
+
+  return `${BASE_URL}/${finalDifficulty}.json`;
 }
-console.log(buildQuizURL('en', 'easy'));
-console.log(buildQuizURL('de', 'hard'));
+
+
 
 
 
