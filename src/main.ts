@@ -1,3 +1,6 @@
 import './style.css'
-console.log("hi");
+import { IQuestion, IQuizData } from './Interfaces/IQuiz';
+
+
+
 
