@@ -6,6 +6,7 @@ const BASE_URL = "https://vz-wd-24-01.github.io/typescript-quiz/questions";
 document.getElementById('language')?.addEventListener('change', checkSelections);
 document.getElementById('difficulty')?.addEventListener('change', checkSelections);
 
+
 function checkSelections(): void {
     const languageSelect = document.getElementById('language') as HTMLSelectElement; 
     const difficultySelect = document.getElementById('difficulty') as HTMLSelectElement;
@@ -58,7 +59,6 @@ let quizData: IQuestion[] = [];
 let quizEnd = false; 
 let correctAnswers = 0; 
 let incorrectAnswers = 0; 
-
 
 document.getElementById('startQuiz')?.addEventListener('click', async () =>
 {
@@ -125,15 +125,22 @@ function hideMessage(): void {
 
 function checkAnswer(selectedIndex: number, correctIndex: number): void {
     if (quizEnd) return;
-    if (selectedIndex === correctIndex) {
-        score ++; 
+    const answerButtons = document.querySelectorAll('#answersContainer button') as NodeListOf<HTMLButtonElement>;
+    const selectedButton = answerButtons[selectedIndex];
+
+    if (selectedIndex === correctIndex){
+        selectedButton.classList.add('correct');
+        score++;
         correctAnswers++;
-        displayMessage('Richtige Antwort!');
     } else {
+        selectedButton.classList.add('incorrect');
         incorrectAnswers++;
-        displayMessage('Falsche Antwort');
+        setTimeout(() => {
+            answerButtons[correctIndex].classList.add('correct')
+        }, 500);
     }
 
+    answerButtons.forEach(button => button.disabled = true);
     currentQuestionIndex++;
     updateQuestionCount();
 
@@ -141,13 +148,11 @@ function checkAnswer(selectedIndex: number, correctIndex: number): void {
         setTimeout(() => {
             hideMessage();
             displayQuestions(quizData[currentQuestionIndex])
-        }, 500)
+        }, selectedIndex === correctIndex ?500 :1000)
     } else {
         setTimeout(() => {
-            hideMessage();
             showResult(); 
-        }, 500)
-        showResult();
+        }, selectedIndex === correctIndex ?500:1000);
     }
 }
 
@@ -172,6 +177,15 @@ document.getElementById('resetQuiz')?.addEventListener('click', () => {
     document.getElementById('questionCount')!.textContent = ''; 
     document.getElementById('answersContainer')!.innerHTML = '';
     document.getElementById('questionContainer')!.innerHTML = ''; 
+
+    const languageSelect = document.getElementById('language') as HTMLSelectElement;
+    const difficultySelect = document.getElementById('difficulty') as HTMLSelectElement;
+
+    languageSelect.value = '';
+    difficultySelect.value = '';
+
+    const startButton = document.getElementById('startQuiz') as HTMLButtonElement;
+    startButton.disabled = true; 
     
 
     hideMessage();

@@ -23,7 +23,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto-Light";
-/* neu */
   display: flex; 
   flex-direction: column; 
   align-items: center;
@@ -34,20 +33,17 @@ header {
   color: white;
   text-align: center;
   padding: 20px;
-  /* neu */
   width: 100%;
 }
 
 h1 {
   font-size: 2.5rem;
   font-family: "Roboto-Regular";
-  /* neu */
   text-align: center;
 }
 
 main {
   padding: 20px;
-  /* neu */
   width: 100%; 
   display: flex; 
   flex-direction: column; 
@@ -62,11 +58,8 @@ main {
   box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
   margin-bottom: 20px;
   padding: 20px;
-  max-width: 600px;
-  /* margin-left: 31%; */
-  /* neu */
+  max-width: 600px; 
   width: 100%; 
-  box-sizing: border-box;
 }
 
 label {
@@ -85,112 +78,123 @@ button {
 }
 
 button {
-  background-color: #2C599D;
-  color: white;
+    background-color: #2C599D;
+    color: white;
 }
 
 button:hover {
-  background-color: #11224D;
+    background-color: #11224D;
 }
 
-#questionContainer 
-{ font-size: 1.5rem; 
-  max-width: 400px;  
-  margin: 0 auto;  
-  padding: 10px;  
-  text-align: center;
+#questionContainer {
+    font-size: 1.5rem; 
+    max-width: 400px;  
+    margin: auto;  
+    padding:10px;  
+    text-align:center;
 }
 
 #answersContainer button {
-  margin-top: 10px; 
+    margin-top:10px; 
 }
 
 #questionCount {
-  margin-top: 10px; 
+    margin-top:10px; 
 }
 
-/* neu */
-footer { 
-  width: 100%; 
-  display: flex; 
-  justify-content: center; 
+.stats {
+    background-color:#f0f8ff; 
+    border:2px solid #2C599D; 
+    border-radius:5px; 
+    padding:15px; 
+    margin-top:10px; 
+    font-weight:bold; 
+    text-align:center; 
+    font-size:1.5rem; 
+    box-shadow:0px4px8pxrgba(0,0,0,0.2); 
 }
 
-footer p {
-  font-family: "Roboto-Thin";
-  color: white;
-  /* margin-left: 25%; */
-  /* neu */
-  text-align: center;
+.stats:hover {
+    background-color:#e0f0ff; 
 }
 
 .correct {
-  background-color: #4CAF50; /* Grün für richtig */
-  color: white;
-  animation: correctAnimation 0.5s ease;
+    background-color:#4CAF50; 
+    color:white;
+    animation:correctAnimation .5s ease; 
 }
 
 .incorrect {
-  background-color: #f44336; /* Rot für falsch */
-  color: white;
-  animation: incorrectAnimation 0.5s ease;
+    background-color:#f44336; 
+    color:white;
+    animation:incorrectAnimation1.5s ease; /* 🌞 Hier ist die Dauer für falsche Antworten */
 }
 
 @keyframes correctAnimation {
-  from { transform: scale(1); }
-  to { transform: scale(1.1); }
+    from { transform :scale(1); }
+    to { transform :scale(1.1); }
 }
 
 @keyframes incorrectAnimation {
-  from { transform: scale(1); }
-  to { transform: scale(0.9); }
+    from { transform :scale(1); }
+    to { transform :scale(0.9); }
+}
+
+footer { 
+    width :100%; 
+    display :flex; 
+    justify-content :center; 
+}
+
+footer p {
+   font-family :"Roboto-Thin";
+   color:white;
+   text-align:center; 
 }
 
 #messageText {
-  color: #F98125;
+   color:#F98125;    
 }
-
 
 /* Media Queries für Responsive Design */ 
-@media (max-width: 768px) {
-  #settings, #quiz, #results { 
-    max-width: 90%; 
-  } 
+@media (max-width :768px) {
+   #settings, #quiz, #results { 
+       max-width :90%; 
+   } 
   
-  h1 { 
-    font-size: 2rem; 
-  }
+   h1 { 
+       font-size :2rem; 
+   }
   
-  #questionContainer { 
-    font-size: 1.2rem; 
-    padding: 5px; 
-  } 
+   #questionContainer { 
+       font-size :1.2rem; 
+       padding :5px; 
+   } 
 } 
 
-@media (max-width: 480px) {
-  header { 
-    padding: 10px; 
-  }
+@media (max-width :480px) {
+   header { 
+       padding :10px; 
+   }
   
-  h1 { 
-    font-size: 1.5rem; 
-  }
+   h1 { 
+       font-size :1.5rem; 
+   }
   
-  #settings, #quiz, #results { 
-    padding: 10px; 
-  } 
+   #settings, #quiz, #results { 
+       padding :10px; 
+   } 
   
-  button, select { 
-    padding: 5px;
-  } 
+   button, select { 
+       padding :5px;
+   } 
   
-  #questionContainer { 
-    font-size: 1rem; 
-    padding: 5px; 
-  } 
+   #questionContainer { 
+       font-size :1rem; 
+       padding :5px; 
+   } 
   
-  #answersContainer button { 
-    padding: 5px; 
-  }
+   #answersContainer button { 
+       padding :5px; 
+   }
 }
-
