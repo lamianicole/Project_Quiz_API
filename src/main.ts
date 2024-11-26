@@ -1,7 +1,19 @@
 import './style.css'
 import IQuestion from './Interfaces/IQuiz';
 
-const BASE_URL = "https://vz-wd-24-01.github.io/typescript-quiz/questions"
+const BASE_URL = "https://vz-wd-24-01.github.io/typescript-quiz/questions";
+
+document.getElementById('language')?.addEventListener('change', checkSelections);
+document.getElementById('difficulty')?.addEventListener('change', checkSelections);
+
+function checkSelections(): void {
+    const languageSelect = document.getElementById('language') as HTMLSelectElement; 
+    const difficultySelect = document.getElementById('difficulty') as HTMLSelectElement;
+    const startButton = document.getElementById('startQuiz') as HTMLButtonElement;
+
+    startButton.disabled = !(languageSelect.value && difficultySelect.value);
+}
+checkSelections();
 
 
 function buildQuizURL(language: string, difficulty: string): string {
@@ -43,6 +55,10 @@ async function fetchQuizData(url: string): Promise<IQuestion[]> {
 let currentQuestionIndex = 0; 
 let score = 0; 
 let quizData: IQuestion[] = [];
+let quizEnd = false; 
+let correctAnswers = 0; 
+let incorrectAnswers = 0; 
+
 
 document.getElementById('startQuiz')?.addEventListener('click', async () =>
 {
@@ -73,19 +89,17 @@ document.getElementById('startQuiz')?.addEventListener('click', async () =>
 })
 
 function displayQuestions(question: IQuestion): void {
-    const questionContainer = document.getElementById('questionContainer') as HTMLDivElement; 
-    questionContainer.innerHTML = question.question;
+    if (quizEnd) return
+    const questionContainer = document.getElementById('questionContainer') as HTMLDivElement;
+    questionContainer.classList.add('question-block');
+    questionContainer.innerHTML = `<p>${question.question}</p>`;
     const answersContainer = document.getElementById('answersContainer') as HTMLDivElement; 
     answersContainer.innerHTML = ''; 
     
     question.answers.forEach((option, index) => {
         const button = document.createElement('button'); 
         button.textContent = option;
-        button.onclick = () => {
-            if (confirm("Mit dem Absenden dieser Antwort ist eine Korrektur nicht mehr möglich. Sind sie sicher?")){
-                checkAnswer(index, question.correct);
-            }
-        }
+        button.onclick = () => checkAnswer(index, question.correct);
         answersContainer.appendChild(button)
     })
     updateQuestionCount();
@@ -93,43 +107,75 @@ function displayQuestions(question: IQuestion): void {
 
 function updateQuestionCount(): void {
     const questionCountDisplay= document.getElementById('questionCount') as HTMLElement;
-    questionCountDisplay.textContent = `Fragen beantwortet: ${currentQuestionIndex} von ${quizData.length}`
+    questionCountDisplay.innerHTML = `Fragen beantwortet: ${currentQuestionIndex} von ${quizData.length}
+    Richtige Antworten: ${correctAnswers} | Falsche Antworten: ${incorrectAnswers}`;
+}
+
+function displayMessage(message: string): void {
+    const messageSection = document.getElementById('message') as HTMLElement;
+    const messageText = document.getElementById('messageText') as HTMLElement;
+    messageText.textContent = message; 
+    messageSection.style.display = 'block';
+}
+
+function hideMessage(): void {
+    const messageSection = document.getElementById('message') as HTMLElement; 
+    messageSection.style.display = 'none';
 }
 
 function checkAnswer(selectedIndex: number, correctIndex: number): void {
+    if (quizEnd) return;
     if (selectedIndex === correctIndex) {
         score ++; 
-        alert('richtige Antwort');
+        correctAnswers++;
+        displayMessage('Richtige Antwort!');
     } else {
-        alert('falsche Antwort');
+        incorrectAnswers++;
+        displayMessage('Falsche Antwort');
     }
 
     currentQuestionIndex++;
+    updateQuestionCount();
 
     if (currentQuestionIndex < quizData.length) {
-        displayQuestions(quizData[currentQuestionIndex])
+        setTimeout(() => {
+            hideMessage();
+            displayQuestions(quizData[currentQuestionIndex])
+        }, 500)
     } else {
+        setTimeout(() => {
+            hideMessage();
+            showResult(); 
+        }, 500)
         showResult();
     }
 }
 
 function showResult(): void {
+    quizEnd = true;
     const resultSection = document.getElementById('results') as HTMLElement; 
     resultSection.style.display = 'block';
     const scoreDisplay = document.getElementById('score') as HTMLElement;
     scoreDisplay.textContent = `Ihr Punktestand: ${score} von ${quizData.length}`
+    displayMessage("Das Quiz ist nun beendet");
 }
 
 document.getElementById('resetQuiz')?.addEventListener('click', () => {
     currentQuestionIndex = 0; 
     score = 0; 
+    correctAnswers = 0;
+    incorrectAnswers = 0; 
     quizData = []; 
+    quizEnd = false;
     
     document.getElementById('results')!.style.display = 'none'; 
     document.getElementById('questionCount')!.textContent = ''; 
-    document.getElementById('answersContainer')!.innerHTML = '';  
+    document.getElementById('answersContainer')!.innerHTML = '';
+    document.getElementById('questionContainer')!.innerHTML = ''; 
     
-    alert("Das Quiz wurde zurückgesetzt."); 
+
+    hideMessage();
+    
  });
 
 

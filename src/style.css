@@ -69,3 +69,25 @@ button:hover {
 #questionCount {
   margin-top: 10px; 
 }
+
+.correct {
+  background-color: #4CAF50; /* Grün für richtig */
+  color: white;
+  animation: correctAnimation 0.5s ease;
+}
+
+.incorrect {
+  background-color: #f44336; /* Rot für falsch */
+  color: white;
+  animation: incorrectAnimation 0.5s ease;
+}
+
+@keyframes correctAnimation {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+@keyframes incorrectAnimation {
+  from { transform: scale(1); }
+  to { transform: scale(0.9); }
+}
