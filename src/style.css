@@ -121,3 +121,6 @@ footer p {
   to { transform: scale(0.9); }
 }
 
+#messageText {
+  color: #F98125;
+}
