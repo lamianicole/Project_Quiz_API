@@ -148,11 +148,11 @@ function checkAnswer(selectedIndex: number, correctIndex: number): void {
         setTimeout(() => {
             hideMessage();
             displayQuestions(quizData[currentQuestionIndex])
-        }, selectedIndex === correctIndex ?500 :1000)
+        }, selectedIndex === correctIndex ?1000 :1500)
     } else {
         setTimeout(() => {
             showResult(); 
-        }, selectedIndex === correctIndex ?500:1000);
+        }, selectedIndex === correctIndex ?1000:1500);
     }
 }
 
