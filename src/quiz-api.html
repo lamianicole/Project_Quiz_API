@@ -15,12 +15,14 @@
         <section id="settings">
             <label for="language">Sprache:</label>
             <select name="" id="language">
+                <option value="" disabled selected>bitte wählen Sie eine Sprache aus - please select a language</option>
                 <option value="de">Deutsch</option>
                 <option value="en">Englisch</option>
             </select> 
 
             <label for="difficulty">Schwierigkeitsgrad:</label>
             <select name="" id="difficulty">
+                <option value="" disabled selected>Schwierigkeitsgrad - Level of Difficulty</option>
                 <option value="easy">Leicht</option>
                 <option value="hard">Schwer</option>
             </select>
@@ -37,6 +39,10 @@
 
         <section id="results">
             <p id="score"></p>
+        </section>
+
+        <section id="message" style="display: none;">
+            <p id="messageText"></p>
         </section>
     </main>
 
